@@ -22,6 +22,15 @@ cmake ..                 # Generate Makefiles
 make                     # Compile the project
 ```
 
+## Running the Unit Tests
+Follow these steps to compile and run the unit tests for the project:
+```bash
+mkdir build && cd build     # Create a build directory
+cmake -DBUILD_TESTS=ON ..   # Generate Makefiles and enable unit tests. 
+make                        # Compile the project
+ctest -V                    # Run the Unit Tests with CTest
+```
+
 ## Running the Application
 After building, you can run the application using:
 ```bash
@@ -32,6 +41,6 @@ After building, you can run the application using:
 
 ## Usage Example
 ```bash
-./build/PerfectNumberFinder ./tests/numbers.txt 5
+./build/PerfectNumberFinder ./numbers.txt 5
 ```
-This command will process numbers from numbers.txt using 10 threads.
+This command will process numbers from numbers.txt using 5 threads.
