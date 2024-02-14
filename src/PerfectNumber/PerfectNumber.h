@@ -1,0 +1,1 @@
+bool isPerfect(int number);
