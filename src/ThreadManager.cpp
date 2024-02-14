@@ -2,7 +2,11 @@
 #include "PerfectNumber.h"
 
 ThreadManager::ThreadManager(const std::vector<int>& numbers, int numThreads)
-    : numbers(numbers), numThreads(numThreads), totalPerfectNumbers(0) {}
+    : numbers(numbers), numThreads(numThreads), totalPerfectNumbers(0) {
+    if (numThreads <= 0) {
+        throw std::invalid_argument("Number of threads must be greater than 0.");
+    }
+}
 
 void ThreadManager::startThreads() {
     for (int i = 0; i < numThreads; ++i) {
@@ -17,6 +21,7 @@ void ThreadManager::joinThreads() {
         }
     }
 }
+
 
 int ThreadManager::getTotalPerfectNumbers() const {
     return totalPerfectNumbers.load();

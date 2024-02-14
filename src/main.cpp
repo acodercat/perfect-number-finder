@@ -3,7 +3,7 @@
 #include <vector>
 #include <atomic>
 #include "PerfectNumber.h"
-#include "FileHandler.h"
+#include "NumberReader.h"
 #include "ThreadManager.h"
 
 int main(int argc, char* argv[]) {
@@ -25,8 +25,13 @@ int main(int argc, char* argv[]) {
     }
 
     std::string filename = argv[1];
+    std::ifstream file(filename);
+    if (!file) {
+        std::cerr << "Unable to open file" << std::endl;
+        return 1;
+    }
 
-    std::vector<int> numbers = readFileNumbers(filename);
+    std::vector<int> numbers = readNumbers(file);
 
     if (numbers.empty()) {
         std::cerr << "No numbers to process." << std::endl;

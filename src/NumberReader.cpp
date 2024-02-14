@@ -1,15 +1,9 @@
-#include "FileHandler.h"
+#include "NumberReader.h"
 
-std::vector<int> readFileNumbers(const std::string& filename) {
-    std::ifstream file(filename);
-    if (!file) {
-        std::cerr << "Unable to open file" << std::endl;
-        return std::vector<int>();
-    }
-
+std::vector<int> readNumbers(std::istream& input) {
     std::vector<int> numbers;
     std::string line;
-    while (std::getline(file, line)) {
+    while (std::getline(input, line)) {
         try {
             int number = std::stoi(line);
             numbers.push_back(number);

@@ -4,4 +4,4 @@
 #include <fstream>
 #include <string>
 
-std::vector<int> readFileNumbers(const std::string& filename);
+std::vector<int> readNumbers(std::istream& input);
