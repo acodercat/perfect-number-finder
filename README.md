@@ -13,6 +13,12 @@ Ensure you have the following installed:
 - C++17 compliant compiler
 - CMake (version 3.20 or higher)
 
+## Initialize Submodules
+
+```bash
+git submodule update --init --recursive
+```
+
 ## Building the Application
 To compile `PerfectNumberFinder`, follow these steps:
 
