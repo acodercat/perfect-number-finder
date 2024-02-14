@@ -1,23 +1,10 @@
 #include <iostream>
 #include <thread>
 #include <vector>
-#include <fstream>
-#include <string>
 #include <atomic>
 #include "PerfectNumber.h"
-
-
-std::atomic<int> totalPerfectNumbers(0);
-
-void isPerfectThread(const std::vector<int>& numbers, int threadId, int numThreads) {
-    for (size_t i = threadId; i < numbers.size(); i += numThreads) {
-        std::cout << "Thread " << threadId + 1 << " processing number: " << numbers[i] << std::endl;
-        if (isPerfect(numbers[i])) {
-            std::cout << "Thread " << threadId << " found perfect number: " << numbers[i] << std::endl;
-            totalPerfectNumbers++;
-        }
-    }
-}
+#include "FileHandler.h"
+#include "ThreadManager.h"
 
 int main(int argc, char* argv[]) {
 
@@ -38,39 +25,19 @@ int main(int argc, char* argv[]) {
     }
 
     std::string filename = argv[1];
-    std::ifstream file(filename);
-    if (!file) {
-        std::cerr << "Unable to open file" << std::endl;
+
+    std::vector<int> numbers = readFileNumbers(filename);
+
+    if (numbers.empty()) {
+        std::cerr << "No numbers to process." << std::endl;
         return 1;
     }
+    
+    ThreadManager threadManager(numbers, numThreads);
+    threadManager.startThreads();
+    threadManager.joinThreads();
 
-
-    std::string line;
-    std::vector<int> numbers;
-    while (std::getline(file, line)) {
-        try {
-            int number = std::stoi(line);
-            numbers.push_back(number);            
-        } catch (const std::invalid_argument& e) {
-            std::cerr << "Invalid number found: " << line << std::endl;
-        } catch (const std::out_of_range& e) {
-            std::cerr << "Number out of range: " << line << std::endl;
-        }
-    }
-
-    file.close();
-
-    std::vector<std::thread> threads;
-    for (int i = 0; i < numThreads; ++i) {
-        threads.emplace_back(isPerfectThread, std::ref(numbers), i, numThreads);
-    }
-
-
-    for (auto& t : threads) {
-        t.join();
-    }
-
-    std::cout << "Total perfect numbers: " << totalPerfectNumbers << std::endl;
+    std::cout << "Total perfect numbers: " << threadManager.getTotalPerfectNumbers() << std::endl;
     return 0;
 }
 

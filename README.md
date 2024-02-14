@@ -1,7 +1,7 @@
 # PerfectNumberFinder
 
 ## Introduction
-`PerfectNumberFinder` is a multi-threaded application designed to efficiently identify perfect numbers within a large set of integers. Utilizing modern C++ features, this program demonstrates the power of parallel computing in processing intensive tasks.
+`PerfectNumberFinder` is a multi-threaded application designed to efficiently identify perfect numbers within a large set of integers.
 
 ## Features
 - Multi-threaded processing to efficiently handle large datasets.
@@ -27,11 +27,11 @@ After building, you can run the application using:
 ```bash
 ./build/PerfectNumberFinder <path-to-number-file> <number-of-threads>
 ```
-* <path-to-number-file>: Specifies the path to the text file containing integers, with one number per line.
-* <number-of-threads>: Indicates how many threads the application should use for processing.
+* \<path-to-number-file\>: Specifies the path to the text file containing integers, with one number per line.
+* \<number-of-threads\>: Indicates how many threads the application should use for processing.
 
 ## Usage Example
 ```bash
-./build/src/PerfectNumberFinder ../tests/numbers.txt 10
+./build/PerfectNumberFinder ./tests/numbers.txt 5
 ```
 This command will process numbers from numbers.txt using 10 threads.
