@@ -2,7 +2,6 @@
 #include <thread>
 #include <vector>
 #include <atomic>
-#include "PerfectNumber.h"
 #include "NumberReader.h"
 #include "ThreadManager.h"
 
