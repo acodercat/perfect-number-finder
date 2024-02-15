@@ -13,12 +13,6 @@ Ensure you have the following installed:
 - C++17 compliant compiler
 - CMake (version 3.20 or higher)
 
-## Initialize Submodules
-
-```bash
-git submodule update --init --recursive
-```
-
 ## Building the Application
 To compile `PerfectNumberFinder`, follow these steps:
 
@@ -30,11 +24,13 @@ make                     # Compile the project
 
 ## Running the Unit Tests
 Follow these steps to compile and run the unit tests for the project:
+
 ```bash
-mkdir build && cd build     # Create a build directory
-cmake -DBUILD_TESTS=ON ..   # Generate Makefiles and enable unit tests. 
-make                        # Compile the project
-ctest -V                    # Run the Unit Tests with CTest
+git submodule update --init --recursive     # Initialize the Google Test submodule
+mkdir build && cd build                     # Create a build directory
+cmake -DBUILD_TESTS=ON ..                   # Generate Makefiles and enable unit tests. 
+make                                        # Compile the project
+ctest -V                                    # Run the Unit Tests with CTest
 ```
 
 ## Running the Application
