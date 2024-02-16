@@ -2,8 +2,9 @@
 
 #include <vector>
 #include <thread>
-#include <atomic>
 #include <iostream>
+#include <future>
+
 
 class ThreadManager {
 public:
@@ -20,11 +21,11 @@ public:
     int getTotalPerfectNumbers() const;
 
 private:
-    std::vector<std::thread> threads; // Vector to store all the worker threads
-    std::atomic<int> totalPerfectNumbers; // Atomic integer to store the total count of perfect numbers found
+    std::vector<std::future<int>> futures; // Futures to hold the return values from threads
+    int totalPerfectNumbers = 0; // The total count of perfect numbers found
     std::vector<int> numbers; // Vector to store the list of numbers to be checked
     int numThreads; // Integer to store the number of threads to be used
 
     // Private member function for threads to execute, checks for perfect numbers in a range of the list
-    void checkPerfectNumbersInRange(int threadId);
+    int checkPerfectNumbersInRange(int threadId);
 };

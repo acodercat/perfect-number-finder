@@ -11,6 +11,7 @@ This project has two goals:
 - Multi-threaded processing to efficiently handle large datasets.
 - Utilizes C++17 standard for modern C++ practices.
 - Easy to build and run with minimal dependencies.
+- Optimized for performance by avoiding the use of atomic variables, thus reducing the overhead associated with atomic operations in multi-threaded environments.
 
 ## Prerequisites
 Ensure you have the following installed:
@@ -62,7 +63,7 @@ The `PerfectNumberFinder` application follows a modular and multi-threaded archi
 
 3. **Perfect Number Checker (`PerfectNumber.cpp`/`PerfectNumber.h`)**: Contains the logic to determine whether a given number is perfect.
 
-4. **Thread Manager (`ThreadManager.cpp`/`ThreadManager.h`)**: Manages a pool of worker threads, distributing workload and ensuring data consistency across threads. It divides the input set among a specified number of worker threads and aggregates their results. The Thread Manager ensures that thread resources are utilized efficiently and manages thread lifecycle and synchronization.
+4. **Thread Manager (`ThreadManager.cpp`/`ThreadManager.h`)**: Manages a pool of worker threads, distributing workload and ensuring data consistency across threads. It divides the input set among a specified number of worker threads and aggregates their results. Optimized for performance by avoiding the use of atomic variables, thus reducing the overhead associated with atomic operations in multi-threaded environments.
 
 5. **Unit Tests**: Located in the `tests` directory, these provide a suite of test cases for the application's core functionalities, ensuring reliability and correctness. The tests cover various scenarios, including edge cases, to validate the integrity of the number reading, perfect number checking, and multi-threading logic.
 

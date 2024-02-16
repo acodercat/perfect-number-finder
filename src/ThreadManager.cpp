@@ -18,32 +18,32 @@ ThreadManager::ThreadManager(const std::vector<int>& numbers, int numThreads) {
 // Function to start the worker threads
 void ThreadManager::startThreads() {
     for (int i = 0; i < numThreads; ++i) {
-        threads.emplace_back(&ThreadManager::checkPerfectNumbersInRange, this, i);
+        auto future = std::async(std::launch::async, &ThreadManager::checkPerfectNumbersInRange, this, i);
+        futures.push_back(std::move(future));
     }
 }
 
 // Function to join all worker threads, ensuring they have completed their execution
 void ThreadManager::joinThreads() {
-    for (auto& thread : threads) {
-        if (thread.joinable()) {
-            thread.join();
-        }
+    for (auto& future : futures) {
+        totalPerfectNumbers += future.get();
     }
 }
 
 // Function to return the total number of perfect numbers found by all threads
 int ThreadManager::getTotalPerfectNumbers() const {
-    return totalPerfectNumbers.load();
+    return totalPerfectNumbers;
 }
 
 // Worker function for each thread to check a subrange of numbers for perfection
-void ThreadManager::checkPerfectNumbersInRange(int threadId) {
+int ThreadManager::checkPerfectNumbersInRange(int threadId) {
+    int count = 0;
     for (size_t i = threadId; i < numbers.size(); i += numThreads) {
         // Check if the current number is perfect
         if (isPerfect(numbers[i])) {
             std::cout << "Thread " << threadId << " found perfect number: " << numbers[i] << std::endl;
-            // Safely increment the count of total perfect numbers
-            totalPerfectNumbers++;
+            count++;
         }
     }
+    return count;
 }
