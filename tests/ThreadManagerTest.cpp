@@ -37,15 +37,13 @@ TEST(ThreadManagerTest, HandlesZeroPerfectNumbersCorrectly) {
     ASSERT_EQ(tm.getTotalPerfectNumbers(), 0);
 }
 
-TEST(ThreadManagerTest, HandlesEmptyInputList) {
+TEST(ThreadManagerTest, ThrowsExceptionWhenEmptyInputList) {
     std::vector<int> emptyNumbers;
     int numThreads = 2;
 
-    ThreadManager tm(emptyNumbers, numThreads);
-    tm.startThreads();
-    tm.joinThreads();
-
-    ASSERT_EQ(tm.getTotalPerfectNumbers(), 0);
+    EXPECT_THROW({
+        ThreadManager tm(emptyNumbers, numThreads);
+    }, std::invalid_argument);
 }
 
 TEST(ThreadManagerTest, ThrowsExceptionWhenZeroOrNegativeThreads) {

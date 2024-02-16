@@ -2,11 +2,17 @@
 #include "PerfectNumber.h"
 
 // Initializes the ThreadManager with a list of numbers and the number of threads 
-ThreadManager::ThreadManager(const std::vector<int>& numbers, int numThreads)
-    : numbers(numbers), numThreads(numThreads), totalPerfectNumbers(0) {
+ThreadManager::ThreadManager(const std::vector<int>& numbers, int numThreads) {
     if (numThreads <= 0) {
         throw std::invalid_argument("Number of threads must be greater than 0.");
     }
+    if (numbers.empty()) {
+        throw std::invalid_argument("Input number list cannot be empty.");
+    }
+
+    this->numbers = numbers;
+    this->numThreads = numThreads;
+    this->totalPerfectNumbers = 0;
 }
 
 // Function to start the worker threads
