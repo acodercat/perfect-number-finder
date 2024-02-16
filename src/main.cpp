@@ -7,6 +7,8 @@
 
 int main(int argc, char* argv[]) {
 
+
+    // Check command line arguments for correct usage
     if (argc != 3) {
         std::cerr << "Usage: " << argv[0] << " <filename>" <<" <number of threads>" << std::endl;
         std::cerr << "<filename>: Path to the file containing numbers, one per line." << std::endl;
@@ -24,19 +26,22 @@ int main(int argc, char* argv[]) {
     }
 
     std::string filename = argv[1];
+
+    // Attempt to open the file
     std::ifstream file(filename);
     if (!file) {
         std::cerr << "Unable to open file" << std::endl;
         return 1;
     }
 
+    // Read numbers from the file into a vector
     std::vector<int> numbers = readNumbers(file);
 
     if (numbers.empty()) {
         std::cerr << "No numbers to process." << std::endl;
         return 1;
     }
-    
+    // Initialize the ThreadManager
     ThreadManager threadManager(numbers, numThreads);
     threadManager.startThreads();
     threadManager.joinThreads();
@@ -44,5 +49,3 @@ int main(int argc, char* argv[]) {
     std::cout << "Total perfect numbers: " << threadManager.getTotalPerfectNumbers() << std::endl;
     return 0;
 }
-
-
