@@ -7,11 +7,10 @@ TEST(ThreadManagerTest, IdentifiesPerfectNumbersCorrectly) {
     int numThreads = 4;
 
     ThreadManager tm(numbers, numThreads);
-    tm.startThreads();
-    tm.joinThreads();
+    tm.launchTasks();
 
     int expectedPerfectNumbers = 4;
-    ASSERT_EQ(tm.getTotalPerfectNumbers(), expectedPerfectNumbers);
+    ASSERT_EQ(tm.collectResults(), expectedPerfectNumbers);
 }
 
 TEST(ThreadManagerTest, WorksCorrectlyWithSingleThread) {
@@ -19,11 +18,10 @@ TEST(ThreadManagerTest, WorksCorrectlyWithSingleThread) {
     int numThreads = 1;
 
     ThreadManager tm(numbers, numThreads);
-    tm.startThreads();
-    tm.joinThreads();
+    tm.launchTasks();
 
     int expectedPerfectNumbers = 1;
-    ASSERT_EQ(tm.getTotalPerfectNumbers(), expectedPerfectNumbers);
+    ASSERT_EQ(tm.collectResults(), expectedPerfectNumbers);
 }
 
 TEST(ThreadManagerTest, HandlesZeroPerfectNumbersCorrectly) {
@@ -31,10 +29,9 @@ TEST(ThreadManagerTest, HandlesZeroPerfectNumbersCorrectly) {
     int numThreads = 2;
 
     ThreadManager tm(numbers, numThreads);
-    tm.startThreads();
-    tm.joinThreads();
+    tm.launchTasks();
 
-    ASSERT_EQ(tm.getTotalPerfectNumbers(), 0);
+    ASSERT_EQ(tm.collectResults(), 0);
 }
 
 TEST(ThreadManagerTest, ThrowsExceptionWhenEmptyInputList) {
@@ -63,9 +60,8 @@ TEST(ThreadManagerTest, HandlesMoreThreadsThanNumbers) {
     int numThreads = 4;
 
     ThreadManager tm(numbers, numThreads);
-    tm.startThreads();
-    tm.joinThreads();
+    tm.launchTasks();
 
-    ASSERT_EQ(tm.getTotalPerfectNumbers(), 1);
+    ASSERT_EQ(tm.collectResults(), 1);
 }
 

@@ -43,9 +43,9 @@ int main(int argc, char* argv[]) {
     }
     // Initialize the ThreadManager
     ThreadManager threadManager(numbers, numThreads);
-    threadManager.startThreads();
-    threadManager.joinThreads();
+    threadManager.launchTasks();
+    int totalPerfectNumbers = threadManager.collectResults();
 
-    std::cout << "Total perfect numbers: " << threadManager.getTotalPerfectNumbers() << std::endl;
+    std::cout << "Total perfect numbers: " << totalPerfectNumbers << std::endl;
     return 0;
 }
