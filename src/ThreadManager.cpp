@@ -14,7 +14,10 @@ ThreadManager::ThreadManager(const std::vector<int>& numbers, int numThreads) {
     this->numThreads = numThreads;
 }
 
-// Function to start the worker threads
+/**
+ * Launches a series of asynchronous tasks to check for perfect numbers within the provided list.
+ * Each task is responsible for a subset of the list, determined by the thread ID.
+ */
 void ThreadManager::launchTasks() {
     for (int i = 0; i < numThreads; ++i) {
         auto future = std::async(std::launch::async, &ThreadManager::checkPerfectNumbersInRange, this, i);
@@ -22,7 +25,12 @@ void ThreadManager::launchTasks() {
     }
 }
 
-// Function to join all worker threads, ensuring they have completed their execution
+/**
+ * Collects the results from all launched asynchronous tasks.
+ * Each future holds the result from one task, and this function aggregates those results.
+ * 
+ * @return The total number of perfect numbers found by all tasks.
+ */
 int ThreadManager::collectResults() {
     int totalPerfectNumbers = 0;
     for (auto& future : futures) {

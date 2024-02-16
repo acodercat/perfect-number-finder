@@ -11,10 +11,19 @@ public:
     // Constructor: Initializes a ThreadManager with a list of numbers and a specified number of threads
     ThreadManager(const std::vector<int>& numbers, int numThreads);
 
-    // Function to start all threads, each will execute checkPerfectNumbersInRange
+    /**
+     * Launches a series of asynchronous tasks to check for perfect numbers within the provided list.
+     * Each task is responsible for a subset of the list, determined by the thread ID.
+     */
     void launchTasks();
 
-    // Function to join all threads, ensuring they complete their execution before proceeding
+    /**
+     * Collects the results from all launched asynchronous tasks and calculates the total number
+     * of perfect numbers found. Each future holds the result from one task, and this function
+     * aggregates those results.
+     * 
+     * @return The total number of perfect numbers found by all tasks.
+     */
     int collectResults();
 
 private:
